@@ -1,0 +1,11 @@
+name: pages-test
+# Public-only test file for fact C22: it exists only in this public repo, with an old action version on purpose.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
