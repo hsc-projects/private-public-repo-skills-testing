@@ -2,7 +2,7 @@ name: a32-trigger
 # A32 test: unprivileged trigger. No secret, no checkout, no write permission.
 on:
   push:
-    branches: [claude/v19-test-a32]
+    branches: [main, claude/v19-test-a32]
 permissions: {}
 jobs:
   t:
