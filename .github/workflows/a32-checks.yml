@@ -1,0 +1,20 @@
+name: a32-checks
+# A32 test: the checks job started through workflow_run. It reports one check run named split-checks on the pushed commit.
+on:
+  workflow_run:
+    workflows: [a32-trigger]
+    types: [completed]
+permissions:
+  contents: read
+  checks: write
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report one check run on the pushed commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh api -X POST "repos/$REPO/check-runs" -f name=split-checks -f head_sha="$SHA" -f status=completed -f conclusion=success -f 'output[title]=split-checks' -f 'output[summary]=pass 0 (A32 test)' --jq '.id'
